@@ -3,24 +3,11 @@ package com.krakedev;
 public class TestProducto {
 
 	public static void main(String[] args) {
-		Producto productoA= new Producto();
-		Producto productoB= new Producto();
-		Producto productoC= new Producto();
+		Producto productoA= new Producto("Ibuprofeno 400mg","Analgesico y antiInflamatorio",3.50,50);
+		Producto productoB= new Producto("Protector Solar","proteccion contra rayos UVA Y UVB",10.50,75);
+		Producto productoC= new Producto("Suero Fisiologico","para limpieza de heridas",2.60,100);
 		
-		productoA.setNombre("Ibuprofeno 400mg");
-		productoA.setDescripcion("Analgesico y antiInflamatorio");
-		productoA.setPrecio(3.50);
-		productoA.setStockActual(50);
-		
-		productoB.setNombre("Protector Solar");
-		productoB.setDescripcion("proteccion contra rayos UVA Y UVB");
-		productoB.setPrecio(10.50);
-		productoB.setStockActual(75);
-		
-		productoC.setNombre("Suero Fisiologico");
-		productoC.setDescripcion("para limpieza de heridas");
-		productoC.setPrecio(2.60);
-		productoC.setStockActual(100);
+	
 		
 		System.out.println("Nombre de Producto A: "+ productoA.getNombre());
 		System.out.println("Descripcion de Producto A: "+ productoA.getDescripcion());

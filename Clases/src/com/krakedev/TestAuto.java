@@ -3,16 +3,10 @@ package com.krakedev;
 public class TestAuto {
 
 	public static void main(String[] args) {
-		Auto auto1=new Auto();
-		Auto auto2=new Auto();
+		Auto auto1=new Auto("chevrolet",2024,19.999);
+		Auto auto2=new Auto("porsche", 2025,1220.98);
 		//modificar atributos
-		auto1.setMarca("chevrolet");
-		auto1.setAnio(2024);
-		auto1.setPrecio(19.999);
 		
-		auto2.setMarca("porsche");
-		auto2.setAnio (2025);
-		auto2.setPrecio(122.99);
 		
 		System.out.println("Marca de Auto1:"+ auto1.getMarca());
 		System.out.println("Anio de Auto1:"+ auto1.getAnio());
