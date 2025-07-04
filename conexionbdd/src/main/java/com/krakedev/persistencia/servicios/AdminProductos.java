@@ -2,7 +2,9 @@ package com.krakedev.persistencia.servicios;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -106,5 +108,89 @@ public class AdminProductos {
 			}
 		}
 	}
+	
+	
+	public static ArrayList<Productos>buscarPorNombreProducto(String nombreProducto)throws Exception{
+		ArrayList<Productos> productos=new ArrayList<Productos>();
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs=null;
+		
+		
+		try {
+			con = ConexionBDD.conectar();
+			ps=con.prepareStatement("select * from productos where nombre like ?");
+			ps.setString(1, "%"+nombreProducto+"%");
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				String nombre=rs.getString("nombre");
+				
+				Productos p=new Productos();
+				p.setNombre(nombre);
+				productos.add(p);
+			}
+			
+			
+		} catch (Exception e) {
+			LOGGER.error("Error al consultar por nombre de Producto ", e);
+			throw new Exception("Error al consultar por nombre de Producto ");
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				LOGGER.error("Error con la base de datos ", e);
+				throw new Exception("Error con la base de datos");
+			}
+		}
+		
+		return productos;
+	}
+	
+	
+	public static Productos buscarPorCodigo(int codigoProducto)throws Exception{
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs=null;
+		 Productos p = null; 
+		
+		try {
+			con = ConexionBDD.conectar();
+			ps=con.prepareStatement("select * from productos where codigo=?");
+			ps.setInt(1, codigoProducto);
+			
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				p= new Productos();
+	            p.setCodigo(rs.getInt("codigo"));
+	            p.setNombre(rs.getString("nombre"));
+	            p.setDescripcion(rs.getString("descripcion"));
+	            p.setStock(rs.getInt("stock"));
+	            p.setFechaVencimiento(rs.getDate("fecha_vencimiento"));
+			}else {
+				return null;
+			}
+			
+			
+		} catch (Exception e) {
+			LOGGER.error("Error al consultar por codigo de Producto ", e);
+			throw new Exception("Error al consultar por codigo de Producto ");
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				LOGGER.error("Error con la base de datos ", e);
+				throw new Exception("Error con la base de datos");
+			}
+		}
+		
+		return p;
+	}
+
+	
+	
 
 }
